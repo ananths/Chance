@@ -15,20 +15,15 @@ public class Chance {
 	}
 
 	public Chance and(Chance otherChance) {
-		return new Chance(probabilityOfBothOccuring(otherChance));
+		return new Chance(probability * otherChance.probability);
 	}
 
 	public Chance or(Chance otherChance) {
-		return new Chance(probablityOfEitherOccuring(otherChance));
+		return nor(otherChance).not(); 
 	}
 
-	private double probablityOfEitherOccuring(Chance otherChance) {
-		return probability + otherChance.probability
-				- probabilityOfBothOccuring(otherChance);
-	}
-
-	private double probabilityOfBothOccuring(Chance otherChance) {
-		return probability * otherChance.probability;
+	private Chance nor(Chance otherChance) {
+		return this.not().and(otherChance.not());
 	}
 
 	@Override
